@@ -13,10 +13,21 @@
 %global  with_gperftools     1
 %endif
 
+# AIO missing on some arches
+%ifnarch aarch64
+%global  with_aio   1
+%endif
+
+%if 0%{?fedora} >= 16 || 0%{?rhel} >= 7
+%global with_systemd 1
+%else
+%global with_systemd 0
+%endif
+
 Name:              nginx
 Epoch:             1
-Version:           1.4.7
-Release:           1%{?dist}
+Version:           1.6.0
+Release:           4%{?dist}
 
 Summary:           A high performance web server and reverse proxy server
 Group:             System Environment/Daemons
@@ -63,7 +74,7 @@ Requires:          perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $ve
 Requires(pre):     shadow-utils
 Provides:          webserver
 
-%if 0%{?fedora} >= 16
+%if 0%{?with_systemd}
 BuildRequires:     systemd
 Requires(post):    systemd
 Requires(preun):   systemd
@@ -102,7 +113,7 @@ export DESTDIR=%{buildroot}
     --http-fastcgi-temp-path=%{nginx_home_tmp}/fastcgi \
     --http-uwsgi-temp-path=%{nginx_home_tmp}/uwsgi \
     --http-scgi-temp-path=%{nginx_home_tmp}/scgi \
-%if 0%{?fedora} >= 16
+%if 0%{?with_systemd}
     --pid-path=/run/nginx.pid \
     --lock-path=/run/lock/subsys/nginx \
 %else
@@ -111,7 +122,9 @@ export DESTDIR=%{buildroot}
 %endif
     --user=%{nginx_user} \
     --group=%{nginx_group} \
+%if 0%{?with_aio}
     --with-file-aio \
+%endif
     --with-ipv6 \
     --with-http_ssl_module \
     --with-http_spdy_module \
@@ -151,7 +164,7 @@ find %{buildroot} -type f -name .packlist -exec rm -f '{}' \;
 find %{buildroot} -type f -name perllocal.pod -exec rm -f '{}' \;
 find %{buildroot} -type f -empty -exec rm -f '{}' \;
 find %{buildroot} -type f -iname '*.so' -exec chmod 0755 '{}' \;
-%if 0%{?fedora} >= 16
+%if 0%{?with_systemd}
 install -p -D -m 0644 %{SOURCE10} \
     %{buildroot}%{_unitdir}/nginx.service
 %else
@@ -194,7 +207,7 @@ getent passwd %{nginx_user} > /dev/null || \
 exit 0
 
 %post
-%if 0%{?fedora} >= 16
+%if 0%{?with_systemd}
 %systemd_post nginx.service
 %else
 if [ $1 -eq 1 ]; then
@@ -209,7 +222,7 @@ if [ $1 -eq 2 ]; then
 fi
 
 %preun
-%if 0%{?fedora} >= 16
+%if 0%{?with_systemd}
 %systemd_preun nginx.service
 %else
 if [ $1 -eq 0 ]; then
@@ -219,7 +232,7 @@ fi
 %endif
 
 %postun
-%if 0%{?fedora} >= 16
+%if 0%{?with_systemd}
 %systemd_postun nginx.service
 %else
 if [ $1 -eq 2 ]; then
@@ -235,7 +248,7 @@ fi
 %{_mandir}/man3/nginx.3pm*
 %{_mandir}/man8/nginx.8*
 %{_mandir}/man8/nginx-upgrade.8*
-%if 0%{?fedora} >= 16
+%if 0%{?with_systemd}
 %{_unitdir}/nginx.service
 %else
 %{_initrddir}/nginx
@@ -268,6 +281,18 @@ fi
 
 
 %changelog
+* Tue Jul 29 2014 Warren Togami <warren@slickage.com> - 1:1.6.0-4
+- systemd is fedora 16+ or EL7
+
+* Wed Jul 02 2014 Yaakov Selkowitz <yselkowi@redhat.com> - 1:1.6.0-3
+- Fix FTBFS on aarch64 (#1115559)
+
+* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1:1.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
+* Sat Apr 26 2014 Jamie Nguyen <jamielinux@fedoraproject.org> - 1:1.6.0-1
+- update to upstream release 1.6.0
+
 * Tue Mar 18 2014 Jamie Nguyen <jamielinux@fedoraproject.org> - 1:1.4.7-1
 - update to upstream release 1.4.7
 
