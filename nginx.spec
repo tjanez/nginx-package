@@ -21,7 +21,7 @@
 Name:              nginx
 Epoch:             1
 Version:           1.6.3
-Release:           2%{?dist}
+Release:           3%{?dist}
 
 Summary:           A high performance web server and reverse proxy server
 Group:             System Environment/Daemons
@@ -256,6 +256,12 @@ fi
 
 
 %changelog
+* Sun Jun 14 2015 Jamie Nguyen <jamielinux@fedoraproject.org> - 1.6.3-3
+- replace /bin/kill with /usr/bin/systemctl kill in logrotate script (#1231543)
+- remove After=syslog.target in nginx.service (#1231543)
+- replace ExecStop with KillSignal=SIGQUIT in nginx.service (#1231543)
+- remove KillMode=mixed as this is not supported on systemd v208
+
 * Sun May 10 2015 Jamie Nguyen <jamielinux@fedoraproject.org> - 1:1.6.3-2
 - improve nginx-upgrade
 - run nginx-upgrade on package updates
