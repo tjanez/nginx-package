@@ -10,7 +10,6 @@ ExecStart=/usr/sbin/nginx
 ExecReload=/bin/kill -s HUP $MAINPID
 KillSignal=SIGQUIT
 TimeoutStopSec=5
-KillMode=mixed
 PrivateTmp=true
 
 [Install]
