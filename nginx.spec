@@ -25,7 +25,7 @@
 Name:              nginx
 Epoch:             1
 Version:           1.8.0
-Release:           13%{?dist}
+Release:           14%{?dist}
 
 Summary:           A high performance web server and reverse proxy server
 Group:             System Environment/Daemons
@@ -270,6 +270,10 @@ fi
 
 
 %changelog
+* Sun Oct 04 2015 Jamie Nguyen <jamielinux@fedoraproject.org> - 1:1.8.0-14
+- consistently use '%%global with_foo' style of logic
+- remove PID file before starting nginx (#1268621)
+
 * Fri Sep 25 2015 Ville Skyttä <ville.skytta@iki.fi> - 1:1.8.0-13
 - Use nginx-mimetypes from mailcap (#1248736)
 - Mark LICENSE as %%license
