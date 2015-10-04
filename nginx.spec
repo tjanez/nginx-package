@@ -10,18 +10,16 @@
 
 # gperftools exist only on selected arches
 %ifarch %{ix86} x86_64 ppc ppc64 %{arm} aarch64
-%global  with_gperftools     1
+%global with_gperftools 1
 %endif
 
 # AIO missing on some arches
 %ifnarch aarch64
-%global  with_aio   1
+%global with_aio 1
 %endif
 
 %if 0%{?fedora} > 22
-%bcond_without mailcap_mimetypes
-%else
-%bcond_with    mailcap_mimetypes
+%global with_mailcap_mimetypes 1
 %endif
 
 Name:              nginx
@@ -72,7 +70,7 @@ Requires:          openssl
 Requires:          pcre
 Requires:          perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires(pre):     nginx-filesystem
-%if %{with mailcap_mimetypes}
+%if 0%{?with_mailcap_mimetypes}
 Requires:          nginx-mimetypes
 %endif
 Provides:          webserver
@@ -190,8 +188,8 @@ install -p -m 0644 %{SOURCE101} %{SOURCE102} \
 install -p -m 0644 %{SOURCE103} %{SOURCE104} \
     %{buildroot}%{nginx_webroot}
 
-%if %{with mailcap_mimetypes}
-rm %{buildroot}%{_sysconfdir}/nginx/mime.types
+%if 0%{?with_mailcap_mimetypes}
+rm -f %{buildroot}%{_sysconfdir}/nginx/mime.types
 %endif
 
 install -p -D -m 0644 %{_builddir}/nginx-%{version}/man/nginx.8 \
@@ -244,7 +242,7 @@ fi
 %config(noreplace) %{nginx_confdir}/fastcgi_params.default
 %config(noreplace) %{nginx_confdir}/koi-utf
 %config(noreplace) %{nginx_confdir}/koi-win
-%if ! %{with mailcap_mimetypes}
+%if ! 0%{?with_mailcap_mimetypes}
 %config(noreplace) %{nginx_confdir}/mime.types
 %endif
 %config(noreplace) %{nginx_confdir}/mime.types.default
