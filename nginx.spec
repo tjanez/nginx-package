@@ -21,7 +21,7 @@
 Name:              nginx
 Epoch:             1
 Version:           1.6.3
-Release:           6%{?dist}
+Release:           7%{?dist}
 
 Summary:           A high performance web server and reverse proxy server
 Group:             System Environment/Daemons
@@ -256,6 +256,9 @@ fi
 
 
 %changelog
+* Sun Oct 04 2015 Jamie Nguyen <jamielinux@fedoraproject.org> - 1:1.6.3-7
+- remove PID file before starting nginx (#1268621)
+
 * Fri Jul 03 2015 Jamie Nguyen <jamielinux@fedoraproject.org> - 1:1.6.3-6
 - switch back to /bin/kill in logrotate script due to SELinux denials
 
