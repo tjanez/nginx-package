@@ -21,7 +21,7 @@
 Name:              nginx
 Epoch:             1
 Version:           1.6.3
-Release:           7%{?dist}
+Release:           8%{?dist}
 
 Summary:           A high performance web server and reverse proxy server
 Group:             System Environment/Daemons
@@ -46,6 +46,16 @@ Source104:         50x.html
 # removes -Werror in upstream build scripts.  -Werror conflicts with
 # -D_FORTIFY_SOURCE=2 causing warnings to turn into errors.
 Patch0:            nginx-auto-cc-gcc.patch
+
+# Patches taken from 1.8.1 release. Only the second patch in this series
+# failed to apply and had to be modified.
+Patch10:           nginx-1.6.3-Resolver-fix-possible-segmentation-fault.patch
+Patch11:           nginx-1.6.3-Resolver-fix-crashes-in-timeout-handler.patch
+Patch12:           nginx-1.6.3-Resolver-fix-CNAME-processing.patch
+Patch13:           nginx-1.6.3-Resolver-change-ngx_resolver_create-arguments.patch
+Patch14:           nginx-1.6.3-Resolver-fix-use-after-free-with-CNAME.patch
+Patch15:           nginx-1.6.3-Resolver-limit-CNAME-recursion.patch
+
 
 BuildRequires:     GeoIP-devel
 BuildRequires:     gd-devel
@@ -93,6 +103,12 @@ directories.
 %prep
 %setup -q
 %patch0 -p0
+%patch10 -p1
+%patch11 -p1
+%patch12 -p1
+%patch13 -p1
+%patch14 -p1
+%patch15 -p1
 
 
 %build
@@ -256,6 +272,11 @@ fi
 
 
 %changelog
+* Tue Jan 26 2016 Jamie Nguyen <jamielinux@fedoraproject.org> - 1:1.6.3-8
+- CVE-2016-0747: Insufficient limits of CNAME resolution in resolver
+- CVE-2016-0746: Use-after-free during CNAME response processing in resolver
+- CVE-2016-0742: Invalid pointer dereference in resolver
+
 * Sun Oct 04 2015 Jamie Nguyen <jamielinux@fedoraproject.org> - 1:1.6.3-7
 - remove PID file before starting nginx (#1268621)
 
