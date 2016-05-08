@@ -2,14 +2,11 @@
 %global  nginx_user          nginx
 
 # gperftools exist only on selected arches
-%ifarch %{ix86} x86_64 ppc ppc64 %{arm} aarch64
+%ifnarch s390 s390x
 %global with_gperftools 1
 %endif
 
-# AIO missing on some arches
-%ifnarch aarch64
 %global with_aio 1
-%endif
 
 %if 0%{?fedora} > 22
 %global with_mailcap_mimetypes 1
@@ -423,6 +420,9 @@ fi
 
 
 %changelog
+* Sun May  8 2016 Peter Robinson <pbrobinson@fedoraproject.org> 1:1.10.0-3
+- Enable AIO on aarch64 (rhbz 1258414)
+
 * Wed Apr 27 2016 Jamie Nguyen <jamielinux@fedoraproject.org> - 1:1.10.0-2
 - only Require nginx-all-modules for EPEL and current Fedora releases
 
