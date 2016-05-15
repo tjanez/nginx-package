@@ -15,7 +15,7 @@
 Name:              nginx
 Epoch:             1
 Version:           1.10.0
-Release:           3%{?dist}
+Release:           4%{?dist}
 
 Summary:           A high performance web server and reverse proxy server
 Group:             System Environment/Daemons
@@ -420,6 +420,9 @@ fi
 
 
 %changelog
+* Sun May 15 2016 Jitka Plesnikova <jplesnik@redhat.com> - 1:1.10.0-4
+- Perl 5.24 rebuild
+
 * Sun May  8 2016 Peter Robinson <pbrobinson@fedoraproject.org> 1:1.10.0-3
 - Enable AIO on aarch64 (rhbz 1258414)
 
