@@ -46,6 +46,8 @@ Source104:         50x.html
 # removes -Werror in upstream build scripts.  -Werror conflicts with
 # -D_FORTIFY_SOURCE=2 causing warnings to turn into errors.
 Patch0:            nginx-auto-cc-gcc.patch
+# CVE-2016-4450
+Patch1:            nginx-1.8.1-null-pointer-deref.patch
 
 # Patches taken from 1.8.1 release. Only the second patch in this series
 # failed to apply and had to be modified.
@@ -103,6 +105,7 @@ directories.
 %prep
 %setup -q
 %patch0 -p0
+%patch1 -p0
 %patch10 -p1
 %patch11 -p1
 %patch12 -p1
@@ -272,6 +275,9 @@ fi
 
 
 %changelog
+* Tue May 31 2016 Jamie Nguyen <jamielinux@fedoraproject.org> - 1:1.6.3-9
+- fix CVE-2016-4450
+
 * Tue Jan 26 2016 Jamie Nguyen <jamielinux@fedoraproject.org> - 1:1.6.3-8
 - CVE-2016-0747: Insufficient limits of CNAME resolution in resolver
 - CVE-2016-0746: Use-after-free during CNAME response processing in resolver
