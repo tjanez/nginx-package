@@ -132,6 +132,7 @@ Requires:          gd
 Group:             System Environment/Daemons
 Summary:           Nginx HTTP perl module
 BuildRequires:     perl-devel
+BuildRequires:     perl-generators
 BuildRequires:     perl(ExtUtils::Embed)
 Requires:          nginx
 Requires:          perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
