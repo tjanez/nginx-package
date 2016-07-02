@@ -179,6 +179,7 @@ cp %{SOURCE210} .
 
 %if 0%{?rhel} < 8
 sed -i -e 's#KillMode=.*#KillMode=process#g' %{SOURCE10}
+sed -i -e 's#PROFILE=SYSTEM#HIGH:!aNULL:!MD5#' %{SOURCE12}
 %endif
 
 
