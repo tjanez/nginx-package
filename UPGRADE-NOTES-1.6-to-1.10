@@ -10,14 +10,13 @@ are any incompatibilities.
 Please see upstream release notes for a complete list of new features,
 bug fixes, and changes: http://nginx.org/en/CHANGES-1.10
 
-Below is a summary of the main changes. If you have not modified any files in
-/etc/nginx directory, the update will work seamlessly. However, if you are
-using any nginx directives that have changed or been removed then you should
-amend your configuration.
+Below is a summary of the main changes. Some nginx directives have been changed
+or removed, so you may need to modify your configuration.
 
-Nginx gained support for dynamic modules. Some modules have been split into
-subpackages, which for the time being are hard dependencies to aid the upgrade
-path. The new subpackages are:
+Nginx gained support for dynamic modules. As part of this update, dynamic
+modules have been split into subpackages. For the time being these are hard
+dependencies to aid the upgrade path. When you install nginx, all of these
+modules are installed and enabled by default:
   - nginx-mod-http-geoip
   - nginx-mod-http-image-filter
   - nginx-mod-http-perl
