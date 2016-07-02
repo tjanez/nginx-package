@@ -37,6 +37,7 @@ Source102:         nginx-logo.png
 Source103:         404.html
 Source104:         50x.html
 Source200:         README.fedora
+Source210:         UPGRADE-NOTES-1.6-to-1.10
 
 # removes -Werror in upstream build scripts.  -Werror conflicts with
 # -D_FORTIFY_SOURCE=2 causing warnings to turn into errors.
@@ -172,6 +173,9 @@ Requires:          nginx
 %setup -q
 %patch0 -p0
 cp %{SOURCE200} .
+%if 0%{?rhel} == 7
+cp %{SOURCE210} .
+%endif
 
 %if 0%{?rhel} < 8
 sed -i -e 's#KillMode=.*#KillMode=process#g' %{SOURCE10}
@@ -352,6 +356,9 @@ fi
 %files
 %license LICENSE
 %doc CHANGES README README.fedora
+%if 0%{rhel} == 7
+%doc UPGRADE-NOTES-1.6-to-1.10
+%endif
 %{_datadir}/nginx/html/*
 %{_bindir}/nginx-upgrade
 %{_sbindir}/nginx
