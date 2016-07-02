@@ -5,13 +5,13 @@ Upgrade notes
 To resolve numerous security flaws, the nginx package was updated to 1.10.x.
 
 You should review your configuration files in /etc/nginx to determine if there
-are any incompatibilities.
+are any incompatibilities. Below is a summary of the main incompatible changes.
+Some nginx directives have been changed or removed, so you may need to modify
+your configuration.
 
 Please see upstream release notes for a complete list of new features,
 bug fixes, and changes: http://nginx.org/en/CHANGES-1.10
-
-Below is a summary of the main changes. Some nginx directives have been changed
-or removed, so you may need to modify your configuration.
+One notable feature is support for HTTP/2.
 
 Nginx gained support for dynamic modules. As part of this update, dynamic
 modules have been split into subpackages. For the time being these are hard
