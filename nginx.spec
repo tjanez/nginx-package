@@ -173,9 +173,7 @@ Requires:          nginx
 %setup -q
 %patch0 -p0
 cp %{SOURCE200} .
-%if 0%{?rhel} == 7
 cp %{SOURCE210} .
-%endif
 
 %if 0%{?rhel} < 8
 sed -i -e 's#KillMode=.*#KillMode=process#g' %{SOURCE10}
