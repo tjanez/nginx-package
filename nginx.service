@@ -12,9 +12,9 @@ ExecStartPre=/usr/bin/rm -f /run/nginx.pid
 ExecStartPre=/usr/sbin/nginx -t
 ExecStart=/usr/sbin/nginx
 ExecReload=/bin/kill -s HUP $MAINPID
-KillMode=process
 KillSignal=SIGQUIT
 TimeoutStopSec=5
+KillMode=mixed
 PrivateTmp=true
 
 [Install]
