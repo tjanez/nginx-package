@@ -132,7 +132,9 @@ Requires:          gd
 Group:             System Environment/Daemons
 Summary:           Nginx HTTP perl module
 BuildRequires:     perl-devel
+%if 0%{?fedora} >= 24
 BuildRequires:     perl-generators
+%endif
 BuildRequires:     perl(ExtUtils::Embed)
 Requires:          nginx
 Requires:          perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
