@@ -36,7 +36,7 @@ Source101:         poweredby.png
 Source102:         nginx-logo.png
 Source103:         404.html
 Source104:         50x.html
-Source200:         README.fedora
+Source200:         README.dynamic
 Source210:         UPGRADE-NOTES-1.6-to-1.10
 
 # removes -Werror in upstream build scripts.  -Werror conflicts with
@@ -356,7 +356,7 @@ fi
 
 %files
 %license LICENSE
-%doc CHANGES README README.fedora
+%doc CHANGES README README.dynamic
 %if 0%{rhel} == 7
 %doc UPGRADE-NOTES-1.6-to-1.10
 %endif
