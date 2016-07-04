@@ -355,7 +355,7 @@ fi
 %files
 %license LICENSE
 %doc CHANGES README README.dynamic
-%if 0%{rhel} == 7
+%if 0%{?rhel} == 7
 %doc UPGRADE-NOTES-1.6-to-1.10
 %endif
 %{_datadir}/nginx/html/*
