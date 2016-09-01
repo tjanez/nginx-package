@@ -21,7 +21,7 @@
 Name:              nginx
 Epoch:             1
 Version:           1.6.3
-Release:           9%{?dist}
+Release:           9.1%{?dist}
 
 Summary:           A high performance web server and reverse proxy server
 Group:             System Environment/Daemons
@@ -139,6 +139,7 @@ export DESTDIR=%{buildroot}
     --with-file-aio \
 %endif
     --with-ipv6 \
+    --with-http_auth_request_module \
     --with-http_ssl_module \
     --with-http_spdy_module \
     --with-http_realip_module \
@@ -275,6 +276,9 @@ fi
 
 
 %changelog
+* Thu Sep 1 2016 Tadej Janež <tadej.j@nez.si> - 1:1.6.3-9.1
+- enable building the ngx_http_auth_request_module module
+
 * Tue May 31 2016 Jamie Nguyen <jamielinux@fedoraproject.org> - 1:1.6.3-9
 - fix CVE-2016-4450
 
