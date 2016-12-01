@@ -15,7 +15,7 @@
 Name:              nginx
 Epoch:             1
 Version:           1.10.2
-Release:           1%{?dist}
+Release:           1.1%{?dist}
 
 Summary:           A high performance web server and reverse proxy server
 Group:             System Environment/Daemons
@@ -211,6 +211,7 @@ export DESTDIR=%{buildroot}
     --with-http_v2_module \
     --with-http_realip_module \
     --with-http_addition_module \
+    --with-http_auth_request_module \
     --with-http_xslt_module=dynamic \
     --with-http_image_filter_module=dynamic \
     --with-http_geoip_module=dynamic \
@@ -429,6 +430,9 @@ fi
 
 
 %changelog
+* Thu Dec 01 2016 Tadej Janež <tadej.j@nez.si> - 1:1.10.2-1.1
+- enable building the HTTP Auth Request module
+
 * Mon Oct 31 2016 Jamie Nguyen <jamielinux@fedoraproject.org> - 1:1.10.2-1
 - update to upstream release 1.10.2
 
